@@ -1,0 +1,69 @@
+h3 {
+    font-weight: 400;
+    font-size: 22px;
+}
+
+tr>th {
+    font-size: 15px;
+}
+
+tr>td {
+    font-size: 15px;
+}
+
+#logout-button {
+    border: none;
+}
+
+.header {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#logout-button {
+    padding: 5px 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ef4444;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#logout-button:hover {
+    background-color: #dc2626;
+}
+
+.header h3 {
+    font-size: 24px;
+    color: #1f2937;
+    position: relative;
+}
+
+.header h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0;
+    bottom: 0;
+    height: 3px;
+    background: #2563eb;
+    transition: 0.5s;
+}
+
+.header h3:hover::after {
+    width: 100%;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+@media (max-width: 345px) {
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+}

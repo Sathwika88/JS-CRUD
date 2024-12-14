@@ -1,0 +1,349 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    color: #1f2937;
+    line-height: 1.5;
+}
+
+
+form {
+    width: 90%;
+    max-width: 500px;
+    margin: 1em auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+}
+
+#addUserForm h3 {
+    font-size: 20px;
+    color: #1f2937;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    margin: 10px 0;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    outline: none;
+    font-size: 15px;
+    color: #424c5e;
+    background-color: #f9fafb;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-box input:focus {
+    border-color: gray;
+    box-shadow: 0 0 4px(0, 0, 0, 0.1);
+}
+
+.input-box i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+}
+
+form input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.error-message {
+    color: #b91c1c;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: left;
+}
+
+#success-message {
+    color: #15803d;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+form .btn {
+    margin-top: 1em;
+    height: 35px;
+    width: 100%;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color:black;
+    background-color: lightblue;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form .btn:hover {
+    background: #0969cf;
+    color: white;
+}
+
+
+.header {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 20px;
+}
+
+.header h3 {
+    font-size: 24px;
+    color: #1f2937;
+    position: relative;
+}
+
+.header h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0;
+    bottom: 0;
+    height: 3px;
+    background: #2563eb;
+    transition: 0.5s;
+}
+
+.header h3:hover::after {
+    width: 100%;
+}
+
+.search-container {
+    display: flex;
+    gap: 5px;
+}
+
+.search-container input {
+    padding: 5px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    outline: none;
+    font-size: 15px;
+}
+
+.search-container button {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2563eb;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+    background-color: #1d4ed8;
+}
+
+#logout-button {
+    padding: 5px 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ef4444;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#logout-button:hover {
+    background-color: #dc2626;
+}
+
+
+.new-user-container {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.new-user-container #addNewUser {
+    padding: 5px 10px;
+    border: none;
+    background-color: #22c55e;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.new-user-container #addNewUser:hover {
+    background-color: #16a34a;
+}
+
+.edit-btn {
+    border: none;
+    color: blue;
+    padding: 5px 12px;
+    background: #ddd;
+    margin-right: 10px;
+
+}
+
+.delete-btn {
+    color: red;
+    border: none;
+    padding: 5px 14px;
+    background: #ddd;
+}
+
+/*media queries*/
+
+@media (min-width:320px) and (max-width:375px) {
+
+    .header {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        position: relative;
+    }
+    
+    .header h3 {
+        font-size: 20px;
+        color: #1f2937;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .search-container input {
+        font-size: 15px;
+        width: 60px;
+    }
+
+    .search-container {
+        display: flex;
+        gap: 5px;
+        align-self: flex-start;
+        margin-bottom: 10px;
+    }
+    .search-container button 
+    {
+        display: none;
+    }
+    #logout-button {
+        position: absolute;
+        top: 40px;
+        right: 20px;
+        padding: 5px 7px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ef4444;
+        color: #ffffff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    td> button 
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .edit-btn {
+        padding: 5px 7px;
+
+    }
+
+    .delete-btn {
+        padding: 5px 10px;
+    }
+
+    button + button {
+        margin: 10px;
+    }
+}
+
+
+@media (min-width: 376px) and (max-width: 425px)
+{
+    .header {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        position: relative;
+    }
+    
+    .header h3 {
+        font-size: 20px;
+        color: #1f2937;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .search-container input {
+        font-size: 15px;
+        width: 60px;
+    }
+
+    .search-container {
+        display: flex;
+        gap: 5px;
+        align-self: flex-start;
+        margin-bottom: 10px;
+    }
+    .search-container button 
+    {
+        display: none;
+    }
+    #logout-button {
+        position: absolute;
+        top: 40px;
+        right: 20px;
+        padding: 5px 7px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ef4444;
+        color: #ffffff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+ 
+    td>button 
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .edit-btn {
+        padding: 5px 7px;
+
+    }
+
+    .delete-btn {
+        padding: 5px 10px;
+    }
+    button + button {
+        margin: 10px;
+    }
+}
+
+/*edit user*/
+#editUser h3{
+    font-size: 20px;
+    color: #1f2937;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}

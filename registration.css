@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+    background-attachment: fixed;
+}
+
+.container {
+    position: relative;
+    width: 620px;
+    height: 550px;
+    /* background:#2A2F4F; */
+    background: white;
+    border-radius: 7px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+}
+
+.image-box {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-box .inside-div {
+    width: 100%;
+    height: 80%;
+}
+
+.image-box img {
+
+    /* margin-left: 10px; */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 7px 0 0 7px;
+
+}
+
+.form-box {
+    width: 55%;
+    height: 100%;
+    /* background-color:white; */
+    /* background-color: #ffffff; */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    /* color: #333; */
+    color: #334155;
+    padding: 25px;
+    /* border-radius: 0 25px 25px 0; */
+}
+
+form {
+    width: 100%;
+}
+
+form h1 {
+    margin-top: -30px;
+    font-size: 23px;
+    /* color: #000; */
+    color: #0f172a;
+    letter-spacing: 1.5px;
+    margin-bottom: 40px;
+}
+
+.input-box {
+    position: relative;
+    margin: 10px 0;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    /* border: 1px solid gray; */
+    border: 1px solid gray;
+    border-radius: 7px;
+    outline: none;
+    font-size: 15px;
+    /* color: #333; */
+    color: #1e293b;
+    margin-bottom: 2px;
+}
+
+.input-box input:focus {
+    /* border: 1px solid black; */
+    border: 1px solid black;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 13px;
+    color: #888;
+    /* color: #94a3b8; */
+}
+
+form input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.forgot-password {
+    margin-top: -10px;
+}
+
+.forgot-password a {
+    text-decoration: none;
+    font-size: 15px;
+    /* color: #FDE2F3; */
+    color: #3b82f6;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    margin-top: 1em;
+    height: 35px;
+    width: 100%;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    /* color: #fff;
+    background: #917FB3; */
+    color: #000;
+    font-size: 15px;
+    color: #ffffff;
+    background: #2563eb;
+}
+
+.btn:hover {
+    /* background: #7e53ce; */
+    background: #1d4ed8;
+}
+
+.btn,
+.forgot-password a {
+    transition: all 0.3s ease;
+}
+
+.error-message {
+    /* color:rgb(136, 8, 8); */
+    color: #b91c1c;
+    font-size: 12px;
+    margin-top: 1px;
+    display: block;
+    text-align: left;
+}
+
+#success-message {
+    /* color: rgb(3, 66, 3); */
+    color: #15803d;
+    font-size: 13px;
+    display: block;
+    font-weight: 600;
+}
+
+p {
+    margin-top: 10px;
+    color: #000;
+    font-size: small;
+}
+
+p a {
+    text-decoration: none;
+    /* color: #333; */
+    color: #2563eb;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+@media (min-width:10px) and (max-width:425px) {
+    .container {
+        height: auto;
+        width: 80%;
+    }
+
+    .image-box {
+        display: none;
+    }
+
+    form h1 {
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+
+    .input-box input {
+        width: 220%;
+    }
+    .btn {
+        width: 220%;
+    }
+    p {
+        margin-top: 20px;
+        color: #000;
+        font-size: small;
+        display: block;
+        white-space: nowrap;
+        width: 100%;
+    }
+    
+    .input-box i {
+        display: none;
+    }
+
+}
+@media (min-width:426px) and (max-width:630px)
+{
+    .container
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .image-box {
+        display: none;
+    }
+
+}
