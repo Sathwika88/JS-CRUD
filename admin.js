@@ -2,13 +2,12 @@ import { validateForm } from './script.js';
 
 const adminInfo = JSON.parse(localStorage.getItem('adminInfo'));
 
-const data = JSON.parse(localStorage.getItem('data')) ||[];
+const data = JSON.parse(localStorage.getItem('data')) || [];
 
-const UserData = data.filter((admin)=>admin.email !== adminInfo.email && !admin.email.endsWith('@cvcorp.in'));
+const UserData = data.filter((admin) => admin.email !== adminInfo.email && !admin.email.endsWith('@cvcorp.in'));
 
-function deleteUser(index)
-    {
-        const userToDelete = UserData[index];
+function deleteUser(index) {
+    const userToDelete = UserData[index];
 
     const originalIndex = data.findIndex(user => user.email === userToDelete.email);
 
@@ -21,65 +20,68 @@ function deleteUser(index)
 
         displayData();
     }
-    }
+}
 
-    function editUser(index) {
-        const userEdit = UserData[index];
+function editUser(index) {
+    const userEdit = UserData[index];
 
-        document.getElementById('editUsername').value = userEdit.username;
-        document.getElementById('editEmail').value = userEdit.email;
-        document.getElementById('editMobile').value = userEdit.mobile;
+    document.getElementById('editUsername').value = userEdit.username;
+    document.getElementById('editEmail').value = userEdit.email;
+    document.getElementById('editMobile').value = userEdit.mobile;
 
-        const editUserForm = document.getElementById('editUser');
-        editUserForm.style.display = "block";
-        editUserForm.scrollIntoView({ behavior: 'smooth' });
-    
-        const userEditForm = document.getElementById('userEditForm');
+    const editUserForm = document.getElementById('editUser');
+    editUserForm.style.display = "block";
+    editUserForm.scrollIntoView({ behavior: 'smooth' });
 
-        userEditForm.onsubmit =(e)=> {
-            e.preventDefault();
+    const userEditForm = document.getElementById('userEditForm');
 
-            
-    
-            const updatedEmail = document.getElementById('editEmail').value.trim();
-            const updatedMobile = document.getElementById('editMobile').value.trim();
-    
-            if(!validateEditForm())
-                {
-                    return;
-                }
-            const originalIndex = data.findIndex(user => user.username === userEdit.username);
-    
-            if (originalIndex !== -1) {
-                UserData[index] = {
-                    ...userEdit,
-                    email: updatedEmail,
-                    mobile: updatedMobile,
-                };
+    userEditForm.onsubmit = (e) => {
+        e.preventDefault();
 
-                data[originalIndex] = UserData[index];
 
-                saveToLocalStorage();
-    
-                displayData();
-    
-                userEditForm.reset();
 
-                clearErrorMessages();
-
-                editUserForm.style.display = "none";
-            }
-        };
-    }
-    
-    function validateEditForm() {
         const updatedEmail = document.getElementById('editEmail').value.trim();
         const updatedMobile = document.getElementById('editMobile').value.trim();
-        const editUsername = document.getElementById('editUsername').value.trim();
-        let isValid = true;
-    
-        if (!updatedEmail) {
-            displayErrorMessage('editEmail', "Please fill this field");
+
+        if (!validateEditForm()) {
+            return;
+        }
+        const originalIndex = data.findIndex(user => user.username === userEdit.username);
+
+        if (originalIndex !== -1) {
+            UserData[index] = {
+                ...userEdit,
+                email: updatedEmail,
+                mobile: updatedMobile,
+            };
+
+            data[originalIndex] = UserData[index];
+
+            saveToLocalStorage();
+
+            displayData();
+
+            userEditForm.reset();
+
+            clearErrorMessages();
+
+            editUserForm.style.display = "none";
+        }
+    };
+}
+
+function validateEditForm() {
+    const updatedEmail = document.getElementById('editEmail').value.trim();
+    const updatedMobile = document.getElementById('editMobile').value.trim();
+    const editUsername = document.getElementById('editUsername').value.trim();
+    let isValid = true;
+
+    if (!updatedEmail) {
+        displayErrorMessage('editEmail', "Please fill this field");
+        isValid = false;
+    } else {
+        if (updatedEmail.endsWith('@cvcorp.in')) {
+            displayErrorMessage('editEmail', "You cannot update with @cvcorp.in email address.");
             isValid = false;
         } else {
             const existingUser = data.find((user) => user.email === updatedEmail && user.username !== editUsername);
@@ -96,29 +98,31 @@ function deleteUser(index)
                 }
             }
         }
-    
-        if (!updatedMobile) {
-            displayErrorMessage('editMobile', "Please fill this field");
-            isValid = false;
-        } else {
-            const mobileRegex = /^[6-9]\d{9}$/;
-            if (!mobileRegex.test(updatedMobile)) {
-                displayErrorMessage("editMobile", "Please enter a valid mobile number.");
-                isValid = false;
-            } else {
-                const existingMobile = data.find((user) => user.mobile === updatedMobile && user.username !== editUsername);
-                if (existingMobile) {
-                    displayErrorMessage('editMobile', "Mobile number is already registered.");
-                    isValid = false;
-                } else {
-                    message("editMobile");
-                }
-            }
-        }
-    
-        return isValid;
     }
     
+
+    if (!updatedMobile) {
+        displayErrorMessage('editMobile', "Please fill this field");
+        isValid = false;
+    } else {
+        const mobileRegex = /^[6-9]\d{9}$/;
+        if (!mobileRegex.test(updatedMobile)) {
+            displayErrorMessage("editMobile", "Please enter a valid mobile number.");
+            isValid = false;
+        } else {
+            const existingMobile = data.find((user) => user.mobile === updatedMobile && user.username !== editUsername);
+            if (existingMobile) {
+                displayErrorMessage('editMobile', "Mobile number is already registered.");
+                isValid = false;
+            } else {
+                message("editMobile");
+            }
+        }
+    }
+
+    return isValid;
+}
+
 function filterData(searchTerm) {
     return UserData.filter((user) => {
         const usernameMatch = user.username?.toLowerCase().includes(searchTerm.toLowerCase()) || false;
@@ -138,7 +142,7 @@ function displayData(searchingterm = '') {
                 <td colspan="4" style="text-align: center;">No data found</td>
             </tr>
         `;
-        return; 
+        return;
     }
     filteredData.forEach((data, index) => {
         tableBodyData.innerHTML += `
@@ -160,24 +164,23 @@ function displayData(searchingterm = '') {
 
     tableBodyData.addEventListener('click', (e) => {
         const target = e.target;
-        const button = target.closest('button'); 
+        const button = target.closest('button');
 
-    if (button) {
-        const index = button.getAttribute('data-index');
+        if (button) {
+            const index = button.getAttribute('data-index');
 
-        if (button.classList.contains('edit-btn')) {
-            editUser(index);
-        } else if (button.classList.contains('delete-btn')) {
-            deleteUser(index);
+            if (button.classList.contains('edit-btn')) {
+                editUser(index);
+            } else if (button.classList.contains('delete-btn')) {
+                deleteUser(index);
+            }
         }
-    }
     });
 }
 
 const searchInput = document.getElementById('searchInput');
-if(searchInput)
-{
-    searchInput.addEventListener('input', (e)=>{
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
         const searchingterm = e.target.value.trim();
         displayData(searchingterm);
     })
@@ -188,9 +191,8 @@ displayData();
 
 const logoutButton = document.getElementById('logout-button');
 
-if(logoutButton)
-{
-    logoutButton.addEventListener('click', ()=>{
+if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
         localStorage.removeItem('role');
         localStorage.removeItem('adminInfo');
 
@@ -209,41 +211,54 @@ const addUserForm = document.getElementById('addUserForm');
 const userForm = document.getElementById('userForm');
 
 
-addUserButton.addEventListener('click', ()=>{
-    addUserForm.style.display ="block";
+addUserButton.addEventListener('click', () => {
+    addUserForm.style.display = "block";
     addUserForm.scrollIntoView({ behavior: 'smooth' });
 });
 
-if(userForm){
-userForm.addEventListener('submit', (e)=>{
+if (userForm) {
+    userForm.addEventListener('submit', (e) => {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const confirmPassword = document.getElementById('confirmpassword').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const mobile = document.getElementById('mobile').value.trim();
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const confirmPassword = document.getElementById('confirmpassword').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const mobile = document.getElementById('mobile').value.trim();
 
-    const newUser ={username, password, confirmPassword, email, mobile};
+        const newUser = { username, password, confirmPassword, email, mobile };
 
-    if(!validateForm(username, password, confirmPassword, email, mobile))
-    {
-        return;
-    }
+        if (!validateForm(username, password, confirmPassword, email, mobile)) {
+            return;
+        }
 
-    data.push(newUser);
+        const existingEmail = data.find((user) => user.email.toLowerCase() === email.toLowerCase());
+        if (existingEmail) {
+            displayErrorMessage('email', "Email is already taken. Please choose another.");
+            return;
+        }   
 
-    saveToLocalStorage();
+        const normalizedUsername = username.replace(/\s+/g, '').toLowerCase();
+        const existingUsername = data.find((user) =>
+            user.username.replace(/\s+/g, '').toLowerCase() === normalizedUsername
+        );
+        if (existingUsername) {
+            displayErrorMessage('username', "Username is already taken. Please choose another.");
+            return;
+        }
 
-    UserData.push(newUser); 
-    
-    displayData();
+        data.push(newUser);
+        UserData.push(newUser);
 
-    userForm.reset();
+        saveToLocalStorage();
 
-    addUserForm.style.display ="none";
-});
+        displayData();
+
+        userForm.reset();
+
+        addUserForm.style.display = "none";
+    });
 }
 
 function displayErrorMessage(inputId, message) {

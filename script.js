@@ -5,6 +5,7 @@ const registerForm = document.getElementById('registerForm');
 const allInputs = document.querySelectorAll('input');
 
 
+
 function saveToLocalStorage() {
     localStorage.setItem('data', JSON.stringify(data));
 }
@@ -59,20 +60,23 @@ export function validateForm(username, password, confirmPassword, email, mobile)
 
     let isValid = true;
 
-
     if (!username) {
         displayErrorMessage('username', "Please fill this field");
         isValid = false;
     }
-    else{
-    const existingUsername = data.find((user) => user.username.toLowerCase() === username);
-    if (existingUsername) {
-        displayErrorMessage('username', "Username is already taken. Please choose another.");
-        isValid = false;
-    }
-    else{
-        message('username');
-    }
+    else {
+        const normalizedUsername = username.replace(/\s+/g, '').toLowerCase();
+    
+        const existingUsername = data.find((user) => 
+            user.username.replace(/\s+/g, '').toLowerCase() === normalizedUsername
+        );
+    
+        if (existingUsername) {
+            displayErrorMessage('username', "Username is already taken. Please choose another.");
+            isValid = false;
+        } else {
+            message('username'); 
+        }
     }
 
     if (!password) {
@@ -80,7 +84,7 @@ export function validateForm(username, password, confirmPassword, email, mobile)
         isValid = false;
     }
     else {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*.?&])[A-Za-z\d@$!%#*.?&]{8,}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%_*.?&])[A-Za-z\d@$!%_#*.?&]{8,}$/;
         if (!passwordRegex.test(password)) {
             displayErrorMessage("password", "8+ characters, including upper, lower, number & symbol.");
             isValid = false;
@@ -108,45 +112,49 @@ export function validateForm(username, password, confirmPassword, email, mobile)
         displayErrorMessage('email', "Please fill this field");
         isValid = false;
     } else {
-        const existingUser = data.find((user) => user.email === email);
-    
-        if (existingUser) {
-            displayErrorMessage("email","User already exists, Please log in!");
-            return;
-        }
-    
-        const emailRegex = /^[A-Za-z][A-Za-z0-9._%+-]*@[A-Za-z0-9]+\.[A-Za-z]{2,}$/;
-    
-        if (!emailRegex.test(email)) {
-            displayErrorMessage("email", "Please enter a valid email address.");
+        if (email.endsWith('@cvcorp.in')) {
+            displayErrorMessage('email', "You cannot register with '@cvcorp.in' email address.");
             isValid = false;
         } else {
-            message("email");
+            const existingUser = data.find((user) => user.email === email);
+            
+            if (existingUser) {
+                displayErrorMessage("email", "User already exists, Please log in!");
+                isValid = false;
+            }
+    
+            const emailRegex = /^[A-Za-z][A-Za-z0-9._%+-]*@[A-Za-z0-9]+\.[A-Za-z]{2,}$/;
+    
+            if (!emailRegex.test(email)) {
+                displayErrorMessage("email", "Please enter a valid email address.");
+                isValid = false;
+            } else {
+                message("email");
+            }
         }
     }
+    
     
 
     if (!mobile) {
         displayErrorMessage('mobile', "Please fill this field");
         isValid = false;
-    }
-    else {
+    } else {
         const mobileRegex = /^[6-9]\d{9}$/;
         if (!mobileRegex.test(mobile)) {
             displayErrorMessage("mobile", "Please enter a valid mobile number.");
-
             isValid = false;
-        }
-        else {
-            message("mobile");
+        } else {
+            const existingMobile = data.find((user) => user.mobile === mobile);
+            if (existingMobile) {
+                displayErrorMessage('mobile', "Mobile number is already registered.");
+                isValid = false;
+            } else {
+                message("mobile");
+            }
         }
     }
-
-    const existingMobile = data.find((user) => user.mobile === mobile);
-    if (existingMobile) {
-        displayErrorMessage('mobile', "Mobile number is already registered.");
-        isValid = false;
-    }
+    
 
     return isValid;
 }
@@ -196,6 +204,7 @@ function validateLogin(email, password) {
 
     let isValid = true;
 
+    
     if (!loginEmail) {
         displayErrorMessage("email", "Please fill this field");
         isValid = false;
@@ -236,29 +245,33 @@ if (loginForm) {
 
         const data = JSON.parse(localStorage.getItem('data')) || [];
 
+        const adminEmail = 'admin@cvcorp.in';
+        const adminPassword = 'Admin.24'; 
+
+
+        if (loginEmail === adminEmail && loginPassword === adminPassword) {
+            localStorage.setItem("role", "admin");
+            localStorage.setItem("adminInfo", JSON.stringify({ email: adminEmail, password: adminPassword }));
+            window.location.href = 'admin.html';
+            return;
+        }
 
         if (!validateLogin(loginEmail, loginPassword)) {
             return;
         }
+
         const userData = data.find((user) => user.email === loginEmail && user.password === loginPassword);
 
         if (userData) {
-            let email = loginEmail.split('@')[1];
-            
-            if (email === 'cvcorp.in') {
-                localStorage.setItem("role", "admin");
-                localStorage.setItem("adminInfo", JSON.stringify(userData));
-                window.location.href = 'admin.html';
-            }
-            else {
-                localStorage.setItem("role", "user");
-                localStorage.setItem("userInfo", JSON.stringify(userData));
-                window.location.href = 'user.html';
-            }
+            localStorage.setItem("role", "user");
+            localStorage.setItem("userInfo", JSON.stringify(userData));
+            window.location.href = 'user.html';
+        } else {
+            displayErrorMessage("login", "Invalid credentials. Please try again.");
         }
-        
     });
 }
+
 
 /*password toggle*/
 
