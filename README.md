@@ -42,8 +42,9 @@ admin-dashboard/
 
 #How to run
     1.Open using live server, once live server starts, it will open default browser at URL like: http://127.0.0.1:5500
-    Note: There are no static admin or user accounts. Both admins and users need to register first before logging in.
-    To access admin login, you must need to create account with email address ending with `@cvcorp.in`.
+    2. To access admin dashboard, login with static email and password and no others can create admin accounts.
+        ADMIN EMAIL : admin@cvcorp.in
+        ADMIN PASSWORD : Admin.24
 
 
 
