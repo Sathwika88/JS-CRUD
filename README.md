@@ -28,7 +28,7 @@ Admin features:
     Users can view their own details after login.
     Users can logout of the dashboard.
 
-3File Structure
+#File Structure
 admin-dashboard/
 │
 ├── index.html         # Main file opens after running the project(i.e login form)
