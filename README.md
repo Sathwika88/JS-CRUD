@@ -24,6 +24,7 @@ Admin features:
 
 #User features
     Users can register and login
+    Registered user details will be visible for admin.
     Users can view their own details after login.
     Users can logout of the dashboard.
 
@@ -31,7 +32,6 @@ Admin features:
 admin-dashboard/
 │
 ├── index.html         # Main file opens after running the project(i.e login form)
-├── style.css          # Main CSS file for styling the dashboard
 ├── script.js          # JavaScript file for functionality
 |── README.md          # Project documentation
 
@@ -42,7 +42,8 @@ admin-dashboard/
 
 #How to run
     1.Open using live server, once live server starts, it will open default browser at URL like: http://127.0.0.1:5500
-    Note: There are no predefined admin or user accounts. Both admins and users need to register first before logging in.
+    Note: There are no static admin or user accounts. Both admins and users need to register first before logging in.
+    To access admin login, you must need to create account with email address ending with `@cvcorp.in`.
 
 
 
